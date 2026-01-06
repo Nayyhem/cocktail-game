@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Jeu Devinette{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-10 flex flex-col items-center">
+  <!-- Bandeau de sélection du jeu -->
+  <div class="flex gap-4 mb-8">
+    <a href="{{ url_for('devinette.jeu_devinette') }}"
+       class="px-4 py-2 rounded-lg shadow 
+       {% if active_tab == 'cocktail' %} bg-blue-600 text-white 
+       {% else %} bg-white hover:bg-gray-100 text-gray-700 {% endif %}">
+      🍸 Deviner le cocktail
+    </a>
+
+    <a href="{{ url_for('devinette.jeu_ingredient') }}"
+       class="px-4 py-2 rounded-lg shadow 
+       {% if active_tab == 'ingredient' %} bg-blue-600 text-white 
+       {% else %} bg-white hover:bg-gray-100 text-gray-700 {% endif %}">
+      🧂 Deviner les ingrédients
+    </a>
+  </div>
+
+    {% include "chrono.html" %}
+
+  <!-- Zone de jeu spécifique -->
+  <div class="w-full max-w-5xl">
+    {% block game_content %}{% endblock %}
+  </div>
+</div>
+{% endblock %}

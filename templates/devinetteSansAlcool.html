@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Devinette Sans Alcool{% endblock %}
+
+{% block content %}
+
+<div class="w-full flex justify-center mt-6">
+    {% include "chrono.html" %}
+</div>
+
+<div class="flex items-center justify-center mt-4">
+
+    <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-sm text-center">
+        <h1 class="text-2xl font-bold mb-6">Devinette Cocktail – Sans Alcool</h1>
+
+        {% if ingredients %}
+            <p class="mb-4">Ingrédients :</p>
+            <ul class="list-disc list-inside mb-4">
+                {% for ingredient in ingredients %}
+                    <li>{{ ingredient }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <form method="POST">
+            <label for="ingredient" class="sr-only">
+                Nom du cocktail
+            </label>
+            <input
+                id="ingredient"
+                type="text"
+                name="ingredient"
+                placeholder="Nom du cocktail sans alcool..."
+                class="w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg
+                       focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                required
+            >
+            <button
+                type="submit"
+                class="w-full bg-blue-500 text-white font-semibold py-2 rounded-lg
+                       hover:bg-blue-600 transition-colors"
+            >
+                Envoyer
+            </button>
+        </form>
+
+        {% if result %}
+            <p class="mt-4 font-semibold
+                      {% if result.startswith('Bonne') %}text-green-600{% else %}text-red-600{% endif %}">
+                {{ result }}
+            </p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

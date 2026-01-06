@@ -1,0 +1,51 @@
+<div class="bg-white shadow p-4 rounded-xl mb-6 w-full max-w-md mx-auto text-center">
+
+  <div id="display" class="text-4xl font-mono font-bold mb-4">02:00</div>
+
+  <div class="flex justify-center gap-3">
+    <button onclick="startTimer()" class="px-4 py-2 bg-green-600 text-white rounded-lg">Lancer</button>
+    <button onclick="pauseTimer()" class="px-4 py-2 bg-yellow-500 text-white rounded-lg">Pause</button>
+    <button onclick="resetTimer()" class="px-4 py-2 bg-red-600 text-white rounded-lg">Arrêter</button>
+  </div>
+</div>
+
+<script>
+    let time = 120;      // 2 min
+    let interval = null;
+
+    function update() {
+      const m = String(Math.floor(time / 60)).padStart(2, '0'); // Calcul des minutes
+      const s = String(time % 60).padStart(2, '0'); // Calcul des secondes
+      document.getElementById("display").textContent = `${m}:${s}`; // Remplace le texte par le temps
+    }
+
+    function startTimer() {
+      if (interval) return; // evite de lancer plusieurs chrono en meme temps
+
+      interval = setInterval(() => {
+        if (time > 0) {
+          time--;
+          update();
+        } else {
+          stopTimer();
+          alert("⏳ Temps écoulé !");
+        }
+      }, 1000);
+    }
+
+    function pauseTimer() {
+      clearInterval(interval);
+      interval = null;
+    }
+
+    function resetTimer() {
+      pauseTimer();
+      time = 120;
+      update();
+    }
+
+    function stopTimer() { // utilisé à la fin
+      clearInterval(interval);
+      interval = null;
+    }
+</script>
